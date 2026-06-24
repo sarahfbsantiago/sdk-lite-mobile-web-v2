@@ -4,7 +4,6 @@
  * @module services/checkout
  */
 
-import { env } from '../config/environment.js'
 import { createCheckoutSession, getPaymentMethods } from '../integrations/yuno/index.js'
 import { ValidationError, InvalidCheckoutSessionError } from '../utils/errors.js'
 

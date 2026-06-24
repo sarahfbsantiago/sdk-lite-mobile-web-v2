@@ -16,10 +16,7 @@ import { ValidationError, PaymentError } from '../utils/errors.js'
 const PAYMENT_TYPE_MAP = {
     0: 'GOOGLE_PAY',
     1: 'APPLE_PAY',
-    2: 'PAYPAL',
-    '0': 'GOOGLE_PAY',
-    '1': 'APPLE_PAY',
-    '2': 'PAYPAL'
+    2: 'PAYPAL'
 }
 
 /**
@@ -372,7 +369,7 @@ class PaymentService {
                    linkResponse?.payment_link ||
                    linkResponse?.url ||
                    linkResponse?.link
-        } catch (error) {
+        } catch {
             return null
         }
     }

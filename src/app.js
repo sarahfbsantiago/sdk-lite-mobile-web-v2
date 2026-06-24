@@ -130,6 +130,9 @@ app.get('/payment-success', (req, res) => {
 // Rotas da API / API routes
 app.use('/', routes)
 
+// Rotas nao encontradas (404) / Not found routes (404)
+app.use(notFoundMiddleware)
+
 // Tratamento de erros / Error handling
 app.use(errorHandlerMiddleware)
 

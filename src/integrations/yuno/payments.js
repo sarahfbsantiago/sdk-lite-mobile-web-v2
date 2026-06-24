@@ -60,10 +60,10 @@ export async function createPaymentLink(data) {
  *       In production, integrate with SpinPay API
  *
  * @param {number} amount - Valor do pagamento / Payment amount
- * @param {string} document - Documento do cliente / Customer document
+ * @param {string} _document - Documento do cliente (reservado p/ integracao real) / Customer document (reserved for real integration)
  * @returns {Promise<Array>} Condições de pagamento / Payment conditions
  */
-export async function getNuPayPaymentConditions(amount, document) {
+export async function getNuPayPaymentConditions(amount, _document) {
     // Mock - em produção integrar com SpinPay / Mock - in production integrate with SpinPay
     return [
         {

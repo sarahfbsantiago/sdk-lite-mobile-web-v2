@@ -34,8 +34,6 @@ export async function handleYunoWebhook(req, res) {
     // Extrair dados do evento / Extract event data
     const eventType = payload.event_type || payload.type || req.headers['x-event-type']
     const paymentId = payload.payment_id || payload.id || payload.data?.id
-    const status = payload.status || payload.data?.status
-    const merchantOrderId = payload.merchant_order_id || payload.data?.merchant_order_id
 
     // Processar por tipo de evento / Process by event type
     switch (eventType) {
