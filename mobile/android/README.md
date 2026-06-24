@@ -70,7 +70,7 @@ app/src/main/java/com/pigeonz/yunocheckout/
 
 ## Dependencias
 
-- Yuno SDK: `com.yuno.payments:android-sdk:2.11.0`
+- Yuno SDK: `com.yuno.payments:android-sdk:2.17.0`
 - Jetpack Compose
 - Retrofit + OkHttp
 - Kotlin Coroutines

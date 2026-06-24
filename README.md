@@ -61,7 +61,7 @@ This project uses the following SDK configuration:
 
 | Aspect | Value |
 |--------|-------|
-| **Web SDK Version** | v1.5 |
+| **Web SDK Version** | v1.9 |
 | **Integration Type** | **Checkout Lite** + **External Buttons** |
 | **Methods Used** | `startCheckout()`, `mountCheckoutLite()`, `mountExternalButtons()` |
 
@@ -77,13 +77,13 @@ The `yuno-official-sdks/` folder contains official SDK examples for:
 - iOS SDK (Full, Lite, Headless modes)
 - Android SDK (all patterns including Enrollment)
 
-### SDK Version Comparison
+### SDK Versions
 
-| Platform | Our Version | Latest Official |
-|----------|-------------|-----------------|
-| Web | v1.5 | v1.9 |
-| iOS | 2.18.0 | 2.18.0 |
-| Android | 2.11.0 | 2.17.0 |
+| Platform | Version |
+|----------|---------|
+| Web | v1.9 |
+| iOS | 2.18.0 |
+| Android | 2.17.0 |
 
 ---
 
@@ -248,7 +248,7 @@ SDK lite 1.5/
 ### Step 1: Load SDK
 
 ```html
-<script src="https://sdk-web.y.uno/v1.5/main.js" defer></script>
+<script src="https://sdk-web.y.uno/v1.9/main.js" defer></script>
 ```
 
 ### Step 2: Add Button Containers
@@ -356,7 +356,7 @@ extension PaymentViewController: YunoPaymentDelegate {
 
 ```groovy
 dependencies {
-    implementation "com.yuno.payments:android-sdk:2.11.0"
+    implementation "com.yuno.payments:android-sdk:2.17.0"
 }
 ```
 
@@ -513,11 +513,11 @@ The **payment logic is identical** across all platforms. Only the UI rendering d
 
 ## SDK Versions
 
-| Platform | Repository | Recommended Version |
-|----------|------------|---------------------|
-| Web | CDN | v1.5 |
-| iOS | [yuno-sdk-ios](https://github.com/yuno-payments/yuno-sdk-ios) | 2.18.0+ |
-| Android | Maven Central / JitPack | 2.11.0+ |
+| Platform | Repository | Version |
+|----------|------------|---------|
+| Web | CDN | v1.9 |
+| iOS | [yuno-sdk-ios](https://github.com/yuno-payments/yuno-sdk-ios) | 2.18.0 |
+| Android | Maven Central / JitPack | 2.17.0 |
 
 ---
 
@@ -595,7 +595,7 @@ Este projeto usa a seguinte configuracao de SDK:
 
 | Aspecto | Valor |
 |---------|-------|
-| **Versao Web SDK** | v1.5 |
+| **Versao Web SDK** | v1.9 |
 | **Tipo de Integracao** | **Checkout Lite** + **External Buttons** |
 | **Metodos Utilizados** | `startCheckout()`, `mountCheckoutLite()`, `mountExternalButtons()` |
 
@@ -611,13 +611,13 @@ A pasta `yuno-official-sdks/` contem exemplos oficiais de SDK para:
 - iOS SDK (modos Full, Lite, Headless)
 - Android SDK (todos os padroes incluindo Enrollment)
 
-### Comparacao de Versoes do SDK
+### Versoes do SDK
 
-| Plataforma | Nossa Versao | Ultima Oficial |
-|------------|--------------|----------------|
-| Web | v1.5 | v1.9 |
-| iOS | 2.18.0 | 2.18.0 |
-| Android | 2.11.0 | 2.17.0 |
+| Plataforma | Versao |
+|------------|--------|
+| Web | v1.9 |
+| iOS | 2.18.0 |
+| Android | 2.17.0 |
 
 ---
 
@@ -782,7 +782,7 @@ SDK lite 1.5/
 ### Passo 1: Carregar SDK
 
 ```html
-<script src="https://sdk-web.y.uno/v1.5/main.js" defer></script>
+<script src="https://sdk-web.y.uno/v1.9/main.js" defer></script>
 ```
 
 ### Passo 2: Adicionar Containers dos Botoes
@@ -890,7 +890,7 @@ extension PaymentViewController: YunoPaymentDelegate {
 
 ```groovy
 dependencies {
-    implementation "com.yuno.payments:android-sdk:2.11.0"
+    implementation "com.yuno.payments:android-sdk:2.17.0"
 }
 ```
 
@@ -1047,11 +1047,11 @@ A **logica de pagamento e identica** em todas as plataformas. Apenas a renderiza
 
 ## Versoes do SDK
 
-| Plataforma | Repositorio | Versao Recomendada |
-|------------|-------------|-------------------|
-| Web | CDN | v1.5 |
-| iOS | [yuno-sdk-ios](https://github.com/yuno-payments/yuno-sdk-ios) | 2.18.0+ |
-| Android | Maven Central / JitPack | 2.11.0+ |
+| Plataforma | Repositorio | Versao |
+|------------|-------------|--------|
+| Web | CDN | v1.9 |
+| iOS | [yuno-sdk-ios](https://github.com/yuno-payments/yuno-sdk-ios) | 2.18.0 |
+| Android | Maven Central / JitPack | 2.17.0 |
 
 ---
 

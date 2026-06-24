@@ -74,7 +74,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.5")
 
     // Yuno SDK
-    implementation("com.yuno.payments:android-sdk:2.11.0")
+    implementation("com.yuno.payments:android-sdk:2.17.0")
 
     // Networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

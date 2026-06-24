@@ -304,7 +304,7 @@
   &lt;div id="paypal-button" class="express-button"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
       <p><strong>Script do SDK</strong> — antes do fechamento de <code class="c-sel">&lt;/body&gt;</code>:</p>
-      <pre><code>&lt;script src="https://sdk-web.y.uno/v1.5/main.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;script src="https://sdk-web.y.uno/v1.9/main.js"&gt;&lt;/script&gt;</code></pre>
     </div>
 
     <h3>2. Onde integrar no JavaScript — Frontend (SDK Lite)</h3>
@@ -460,7 +460,7 @@ res.json(response);</code></pre>
     },
   });
 });
-&lt;script defer src="https://sdk-web.y.uno/v1.5/main.js"&gt;&lt;/script&gt;</code></pre>
+&lt;script defer src="https://sdk-web.y.uno/v1.9/main.js"&gt;&lt;/script&gt;</code></pre>
       <p><strong>Nota:</strong> No Full SDK o PayPal pode vir na lista; quando o usuário escolher PayPal, o mesmo <code class="c-fn">yunoCreatePayment</code> é chamado. Seu backend deve identificar <code class="c-prop">paymentMethodType: "PAYPAL"</code> e devolver <code class="c-prop">redirect_url</code>; o front redireciona como no código acima.</p>
     </div>
 
