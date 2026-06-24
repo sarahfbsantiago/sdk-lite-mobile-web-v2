@@ -47,7 +47,7 @@ O app usa o mesmo backend do projeto web (`server.js`).
 Certifique-se que o servidor esta rodando:
 
 ```bash
-cd "/Users/sarahsantiago/Desktop/SDK lite 1.5"
+cd "yuno-integration-web-mobile"
 node server.js
 ```
 

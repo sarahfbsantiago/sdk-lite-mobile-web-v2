@@ -4,7 +4,7 @@
 Aceito
 
 ## Contexto
-O projeto SDK Lite 1.5 cresceu organicamente e acumulou todo o codigo em dois arquivos principais (`server.js` e `yuno.js`). Isso dificultava:
+O projeto Yuno Integration cresceu organicamente e acumulou todo o codigo em dois arquivos principais (`server.js` e `yuno.js`). Isso dificultava:
 - Manutencao do codigo
 - Testes unitarios
 - Adicao de novas funcionalidades

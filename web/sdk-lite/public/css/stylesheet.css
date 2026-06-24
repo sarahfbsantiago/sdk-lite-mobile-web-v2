@@ -423,7 +423,7 @@ body,h1,h2,h3,p,a {
   color: var(--cinza-escuro);
 }
 
-/* Wallet buttons section (SDK v1.5: after dropdown) */
+/* Wallet buttons section (SDK Lite: after dropdown) */
 .wallet-buttons-section {
   margin: 24px auto;
   max-width: 480px;
