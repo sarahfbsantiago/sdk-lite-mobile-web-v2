@@ -35,15 +35,16 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
 const webSdkLiteDir = resolve(rootDir, 'web', 'sdk-lite')
 const publicDir = resolve(webSdkLiteDir, 'public')
+const viewsDir = resolve(webSdkLiteDir, 'views')
 const docsDir = resolve(rootDir, 'docs', 'guides')
-const indexPage = resolve(webSdkLiteDir, 'index.html')
-const checkoutPage = resolve(webSdkLiteDir, 'checkout.html')
+const indexPage = resolve(viewsDir, 'index.html')
+const checkoutPage = resolve(viewsDir, 'checkout.html')
 
 // Verificar arquivos necessarios / Verify required files
 function verifyPaths() {
     const paths = [
-        { path: indexPage, label: 'web/sdk-lite/index.html' },
-        { path: checkoutPage, label: 'web/sdk-lite/checkout.html' },
+        { path: indexPage, label: 'web/sdk-lite/views/index.html' },
+        { path: checkoutPage, label: 'web/sdk-lite/views/checkout.html' },
         { path: publicDir, label: 'web/sdk-lite/public/' },
         { path: docsDir, label: 'docs/guides/' }
     ]
