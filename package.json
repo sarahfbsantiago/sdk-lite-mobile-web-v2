@@ -7,7 +7,6 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "start:legacy": "node server.js",
     "dev": "node --watch src/app.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:unit": "npm test -- tests/unit",
@@ -16,7 +15,12 @@
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix"
   },
-  "keywords": ["yuno", "payment", "sdk", "checkout"],
+  "keywords": [
+    "yuno",
+    "payment",
+    "sdk",
+    "checkout"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -24,5 +28,8 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
