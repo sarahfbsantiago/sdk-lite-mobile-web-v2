@@ -142,5 +142,6 @@ window.addEventListener("yuno-sdk-ready", async () => {
 
 ## Documentation
 
+- [Payment Methods Guide](../../docs/PAYMENT_METHODS.md) - Sandbox/Production compatibility, requirements
 - [Yuno Docs](https://docs.y.uno)
 - [Web SDK Repository](https://github.com/yuno-payments/yuno-sdk-web)

@@ -91,6 +91,26 @@ npm start
 
 ---
 
+## Payment Methods
+
+See the complete **[Payment Methods Guide](docs/PAYMENT_METHODS.md)** for:
+- Compatibility matrix (Web/iOS/Android)
+- Sandbox vs Production support
+- Requirements per method
+- Testing instructions
+
+### Quick Reference
+
+| Method | Web | iOS | Android | Sandbox |
+|--------|:---:|:---:|:-------:|:-------:|
+| Apple Pay | Safari | Device | - | No |
+| Google Pay | Chrome | - | Yes | Yes |
+| PayPal | Yes | Yes | Yes | Yes |
+| PIX | Yes | Yes | Yes | Yes |
+| Card | Yes | Yes | Yes | Yes |
+
+---
+
 ## Official Documentation
 
 - **Yuno Docs:** https://docs.y.uno
