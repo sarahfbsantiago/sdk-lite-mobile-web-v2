@@ -62,7 +62,7 @@ app.use(express.json())
 app.use(requestLoggerMiddleware)
 
 // Arquivos estaticos / Static files
-app.use('/static', express.static(resolve(publicDir, 'images')))
+app.use('/static', express.static(publicDir))
 app.use('/public', express.static(publicDir))
 app.use('/css', express.static(resolve(publicDir, 'css')))
 app.use('/images', express.static(resolve(publicDir, 'images')))
