@@ -33,18 +33,18 @@ validateEnv()
 // Diretorios (seguindo protocolo de estrutura) / Directories (following structure protocol)
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
-const publicDir = resolve(rootDir, 'public')
-const viewsDir = resolve(rootDir, 'views')
+const webSdkLiteDir = resolve(rootDir, 'web', 'sdk-lite')
+const publicDir = resolve(webSdkLiteDir, 'public')
 const docsDir = resolve(rootDir, 'docs', 'guides')
-const indexPage = resolve(viewsDir, 'index.html')
-const sdkLitePage = resolve(viewsDir, 'sdk-lite.html')
+const indexPage = resolve(webSdkLiteDir, 'index.html')
+const checkoutPage = resolve(webSdkLiteDir, 'checkout.html')
 
 // Verificar arquivos necessarios / Verify required files
 function verifyPaths() {
     const paths = [
-        { path: indexPage, label: 'views/index.html' },
-        { path: sdkLitePage, label: 'views/sdk-lite.html' },
-        { path: publicDir, label: 'public/' },
+        { path: indexPage, label: 'web/sdk-lite/index.html' },
+        { path: checkoutPage, label: 'web/sdk-lite/checkout.html' },
+        { path: publicDir, label: 'web/sdk-lite/public/' },
         { path: docsDir, label: 'docs/guides/' }
     ]
 
@@ -90,11 +90,16 @@ app.get('/', (req, res, next) => {
     res.sendFile(indexPage)
 })
 
-app.get('/sdk-lite.html', (req, res, next) => {
-    if (!fs.existsSync(sdkLitePage)) {
-        return next(new Error('sdk-lite.html nao encontrado'))
+app.get('/checkout', (req, res, next) => {
+    if (!fs.existsSync(checkoutPage)) {
+        return next(new Error('checkout.html nao encontrado'))
     }
-    res.sendFile(sdkLitePage)
+    res.sendFile(checkoutPage)
+})
+
+// Legacy route for backwards compatibility
+app.get('/sdk-lite.html', (req, res) => {
+    res.redirect('/checkout')
 })
 
 // Página de sucesso de pagamento / Payment success page

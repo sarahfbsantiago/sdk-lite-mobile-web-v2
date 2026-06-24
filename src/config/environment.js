@@ -21,9 +21,9 @@ export const env = {
     isProduction: process.env.NODE_ENV === 'production',
 
     // Servidor / Server
-    PORT: Number(process.env.PORT) || 8082,
+    PORT: Number(process.env.PORT) || 8081,
     HOST: process.env.HOST || '0.0.0.0',
-    BASE_URL: process.env.BASE_URL || 'http://localhost:8082',
+    BASE_URL: process.env.BASE_URL || 'http://localhost:8081',
 
     // Yuno API
     YUNO_API_URL: process.env.API_URL,
