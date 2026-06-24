@@ -152,7 +152,5 @@ function startServer() {
 // Export for use as module or run directly
 export { app, startServer }
 
-// Executar se chamado diretamente / Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-    startServer()
-}
+// Iniciar servidor automaticamente / Start server automatically
+startServer()
