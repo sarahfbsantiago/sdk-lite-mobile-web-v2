@@ -42,6 +42,8 @@
 /
 ├── web/
 │   ├── sdk-lite/           # Checkout Lite + External Buttons
+│   │   ├── views/          # HTML templates (index.html, checkout.html)
+│   │   └── public/         # Static assets (css/, images/)
 │   ├── sdk-full/           # Checkout Full (coming soon)
 │   ├── sdk-seamless/       # Seamless Checkout (coming soon)
 │   ├── sdk-headless/       # Headless API (coming soon)
@@ -49,15 +51,25 @@
 │
 ├── mobile/
 │   ├── ios/
-│   │   ├── sdk-lite/       # iOS SDK Lite
+│   │   ├── sdk-lite/       # iOS SDK Lite (SwiftUI)
 │   │   ├── sdk-full/       # iOS SDK Full (coming soon)
 │   │   └── sdk-headless/   # iOS Headless (coming soon)
 │   └── android/
-│       ├── sdk-lite/       # Android SDK Lite
+│       ├── sdk-lite/       # Android SDK Lite (Jetpack Compose)
 │       ├── sdk-complete/   # Android SDK Complete (coming soon)
 │       └── sdk-headless/   # Android Headless (coming soon)
 │
 ├── src/                    # Backend (shared)
+│   ├── config/             # Environment config
+│   ├── controllers/        # HTTP entry points
+│   ├── services/           # Business logic
+│   ├── routes/             # Route definitions
+│   ├── integrations/yuno/  # Yuno API client
+│   ├── middlewares/        # Logging, error handling
+│   └── utils/              # Logger, error classes
+│
+├── tests/                  # Unit tests (jest)
+├── docs/                   # ADRs, guides, payment methods
 └── yuno-official-sdks/     # Official SDK references
 ```
 
@@ -77,6 +89,17 @@ npm start
 
 # 4. Open
 # http://localhost:8081
+```
+
+---
+
+## Development
+
+```bash
+npm run dev       # Run with auto-reload (node --watch)
+npm test          # Run the test suite
+npm run lint      # Lint the source code
+npm run lint:fix  # Lint and auto-fix
 ```
 
 ---
