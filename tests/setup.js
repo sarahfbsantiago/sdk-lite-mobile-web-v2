@@ -2,6 +2,8 @@
  * @fileoverview Configuracao global de testes
  */
 
+import { jest } from '@jest/globals'
+
 // Configurar variaveis de ambiente para testes
 process.env.NODE_ENV = 'test'
 process.env.LOG_LEVEL = 'ERROR' // Reduzir logs durante testes

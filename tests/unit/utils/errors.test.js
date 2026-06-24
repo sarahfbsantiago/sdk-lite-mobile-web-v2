@@ -62,7 +62,7 @@ describe('Classes de Erro', () => {
 
             expect(error.statusCode).toBe(401)
             expect(error.code).toBe('AUTHENTICATION_ERROR')
-            expect(error.message).toBe('Nao autenticado')
+            expect(error.message).toBe('Não autenticado')
         })
     })
 
@@ -81,7 +81,7 @@ describe('Classes de Erro', () => {
 
             expect(error.statusCode).toBe(404)
             expect(error.code).toBe('NOT_FOUND')
-            expect(error.message).toBe('Usuario nao encontrado')
+            expect(error.message).toBe('Usuario não encontrado')
         })
     })
 

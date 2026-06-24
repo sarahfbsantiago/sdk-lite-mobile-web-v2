@@ -5,7 +5,7 @@
 import { jest } from '@jest/globals'
 
 // Mock do modulo de integracao
-jest.unstable_mockModule('../../../src/integrations/yuno/index.js', () => ({
+jest.unstable_mockModule('../src/integrations/yuno/index.js', () => ({
     createCheckoutSession: jest.fn(),
     getPaymentMethods: jest.fn()
 }))
