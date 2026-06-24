@@ -1,0 +1,23 @@
+{
+  "name": "sdk-lite-1-5",
+  "version": "1.5.0",
+  "description": "SDK Lite para integracao com Yuno Payment Gateway",
+  "private": true,
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "start:legacy": "node server.js",
+    "dev": "node --watch src/app.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:unit": "npm test -- tests/unit",
+    "test:integration": "npm test -- tests/integration",
+    "test:coverage": "npm test -- --coverage",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "keywords": ["yuno", "payment", "sdk", "checkout"],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

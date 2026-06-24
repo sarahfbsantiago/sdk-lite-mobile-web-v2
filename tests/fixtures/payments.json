@@ -1,0 +1,52 @@
+{
+  "validCardPayment": {
+    "checkoutSession": "session_test_123",
+    "oneTimeToken": "tok_test_card",
+    "paymentMethodType": "CARD",
+    "documentNumber": "12345678901",
+    "amount": 2000,
+    "currency": "BRL"
+  },
+  "validPixPayment": {
+    "checkoutSession": "session_test_456",
+    "oneTimeToken": "tok_test_pix",
+    "paymentMethodType": "PIX",
+    "documentNumber": "12345678901",
+    "amount": 1500,
+    "currency": "BRL"
+  },
+  "validPayPalPayment": {
+    "checkoutSession": "session_test_789",
+    "paymentMethodType": "PAYPAL",
+    "amount": 3000,
+    "currency": "BRL"
+  },
+  "checkoutSession": {
+    "success": {
+      "checkout_session": "cs_test_success",
+      "country": "BR",
+      "amount": {
+        "value": 2000,
+        "currency": "BRL"
+      }
+    },
+    "error": {
+      "code": "INVALID_REQUEST",
+      "messages": ["Account not configured for this country"]
+    }
+  },
+  "paymentResponse": {
+    "approved": {
+      "id": "pay_approved_123",
+      "status": "SUCCEEDED",
+      "payment_method": {
+        "type": "CARD",
+        "brand": "VISA"
+      }
+    },
+    "declined": {
+      "code": "INSUFFICIENT_FUNDS",
+      "messages": ["Saldo insuficiente"]
+    }
+  }
+}

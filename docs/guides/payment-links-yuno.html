@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Links de Pagamento — Integração Yuno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f9fa;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --accent: #6366f1;
+      --accent-dark: #4f46e5;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --teal: #0d9488;
+      --amber: #d97706;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --code-bg: #1e1e1e;
+      --code-border: #333;
+      --code-text: #d4d4d4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+      color: var(--accent-dark);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--blue);
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--purple);
+    }
+
+    p {
+      margin: 0 0 0.75rem;
+      color: var(--text);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card.highlight {
+      border-left-color: var(--accent);
+      background: #eef2ff;
+    }
+
+    .card.highlight strong { color: var(--accent-dark); }
+
+    .card.warning {
+      border-left-color: var(--amber);
+      background: #fffbeb;
+    }
+
+    .card.warning strong { color: #b45309; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+    }
+
+    .badge.lite { background: #dbeafe; color: #1d4ed8; }
+    .badge.api { background: #ccfbf1; color: #0f766e; }
+
+    ul, ol { margin: 0 0 0.75rem; padding-left: 1.25rem; }
+    li { margin-bottom: 0.35rem; color: var(--text); }
+
+    code, .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+      background: none;
+      padding: 0;
+      border: none;
+      color: #0969da;
+    }
+    code.c-fn, .code.c-fn { color: #0550ae; font-weight: 600; }
+    code.c-type, .code.c-type { color: #0a3069; }
+    code.c-prop, .code.c-prop { color: #0969da; }
+    code.c-str, .code.c-str { color: #cf222e; }
+    code.c-sel, .code.c-sel { color: #953800; }
+
+    pre {
+      font-family: Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      margin: 0.75rem 0;
+      line-height: 1.5;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      color: var(--code-text);
+      border: none;
+      font-size: 1em;
+    }
+
+    pre code .hl-kw { color: #569cd6; }
+    pre code .hl-str { color: #ce9178; }
+    pre code .hl-com { color: #6a9955; }
+    pre code .hl-num { color: #b5cea8; }
+    pre code .hl-fn  { color: #dcdcaa; }
+    pre code .hl-prop { color: #9cdcfe; }
+    pre code .hl-type { color: #4ec9b0; }
+
+    .step {
+      counter-increment: step;
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .step::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .steps { counter-reset: step; }
+
+    .note {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    table strong { color: var(--text); }
+
+    .ascii-diagram {
+      font-family: Consolas, Monaco, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      margin: 0.75rem 0;
+      line-height: 1.4;
+      white-space: pre;
+      border: 1px solid var(--code-border);
+    }
+    .ascii-diagram code { background: none; color: inherit; padding: 0; }
+
+    body, .card, .card.highlight, .card.warning,
+    .badge, .badge.lite, .badge.api, code, pre, .step::before {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    @media print {
+      @page { margin: 1.2cm; size: auto; }
+      body { background: #fff !important; }
+      .card { background: #f8f9fa !important; border-color: #e2e8f0 !important; border-left-color: #2563eb !important; }
+      .card.highlight { background: #eef2ff !important; border-left-color: #6366f1 !important; }
+      .card.warning { background: #fffbeb !important; border-left-color: #d97706 !important; }
+      h1 { color: #4f46e5 !important; }
+      h2 { color: #2563eb !important; }
+      h3 { color: #7c3aed !important; }
+      code { background: transparent !important; border: none !important; }
+      pre { background: #1e1e1e !important; border-color: #333 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Links de Pagamento — Integração Yuno</h1>
+      <p class="subtitle">Criação e distribuição de links de pagamento via API — guia técnico para programadores</p>
+    </header>
+
+    <p>
+      Os <strong>Payment Links</strong> da Yuno permitem gerar URLs de checkout para cobrança sem integrar um checkout na sua aplicação. O link pode ser enviado por <strong>site</strong>, <strong>WhatsApp</strong>, <strong>e-mail</strong> ou <strong>QR Code</strong>. Este documento descreve a divisão de responsabilidades, o fluxo técnico e as boas práticas de segurança e tratamento de erros.
+    </p>
+
+    <div class="card highlight" style="margin-bottom: 1.5rem;">
+      <strong>Como usar este documento</strong>
+      <p style="margin: 0 0 0.5rem 0;">Quando publicado em uma página web (ex.: docs.y.uno), não há caminhos locais no rodapé. Se você abrir o arquivo pelo disco (<code>file://</code>) ou exportar para PDF a partir do navegador, o sistema pode inserir caminhos locais no rodapé ou no cabeçalho. Para evitar isso: ao <strong>imprimir ou salvar como PDF</strong>, desative <strong>Cabeçalhos e rodapés</strong> nas opções de impressão. Ao copiar exemplos de código, use esta versão .html (ou a página publicada na web) para evitar que exportações para outros formatos corrompam operadores (ex.: <code>|</code> em vez de <code>||</code>, <code>&amp;</code> em vez de <code>&amp;&amp;</code>).</p>
+    </div>
+
+    <!-- Divisão de responsabilidades -->
+    <h2>Divisão de responsabilidades — Yuno vs Cliente</h2>
+    <div class="card">
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="text-align: left; border-bottom: 1px solid var(--border);">
+            <th style="padding: 0.5rem 0.75rem 0.5rem 0;">Responsabilidade</th>
+            <th style="padding: 0.5rem 0.75rem;">Yuno</th>
+            <th style="padding: 0.5rem 0.75rem;">Cliente (merchant)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Criar o link</strong></td>
+            <td style="padding: 0.75rem;">Expõe API <code class="c-str">POST /v1/payment-links</code> e retorna <code class="c-prop">checkout_url</code>.</td>
+            <td style="padding: 0.75rem;">Chama a API a partir do <strong>backend</strong> (nunca do frontend com <code class="c-prop">private-secret-key</code>).</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Host do checkout</strong></td>
+            <td style="padding: 0.75rem;">Fornece a página de pagamento em <code class="c-str">checkout.y.uno</code> / <code class="c-str">checkout-sandbox.y.uno</code>.</td>
+            <td style="padding: 0.75rem;">Redireciona o cliente para a URL retornada ou envia o link por canal desejado.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Notificação do resultado</strong></td>
+            <td style="padding: 0.75rem;">Envia webhooks (ex.: <code class="c-prop">payment.approved</code>, <code class="c-prop">payment.rejected</code>).</td>
+            <td style="padding: 0.75rem;">Implementa endpoint que recebe o webhook, valida e atualiza o pedido.</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Credenciais</strong></td>
+            <td style="padding: 0.75rem;">Valida <code class="c-prop">public-api-key</code> e <code class="c-prop">private-secret-key</code>.</td>
+            <td style="padding: 0.75rem;">Guarda a <strong>private-secret-key</strong> apenas no backend (variáveis de ambiente).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Diagrama de sequência -->
+    <h2>Fluxo de sequência — Frontend → Backend → API Yuno</h2>
+    <pre class="ascii-diagram" style="white-space: pre;"><code>Cliente (navegador)     Seu Backend              API Yuno
+       |                       |                        |
+       |  POST /api/payment-link (sem credenciais)      |
+       |----------------------&gt;|                        |
+       |                       |  POST /v1/payment-links|
+       |                       |  public-api-key        |
+       |                       |  private-secret-key    |
+       |                       |-----------------------&gt;|
+       |                       |  201 + checkout_url    |
+       |                       |&lt;-----------------------|
+       |  { paymentLink }      |                        |
+       |&lt;----------------------|                        |
+       |  Redireciona ou envia link ao cliente          |</code></pre>
+    <p class="note">A <code class="c-prop">private-secret-key</code> nunca é enviada pelo frontend; apenas o backend a inclui nas chamadas à API Yuno.</p>
+
+    <!-- Segurança -->
+    <div class="card warning">
+      <strong>Segurança — uso da private-secret-key</strong>
+      <p style="margin: 0 0 0.5rem 0;">A <strong>private-secret-key</strong> nunca deve sair do backend. Não a coloque em código JavaScript do frontend, não a exponha em variáveis de ambiente do cliente e não a envie em requisições iniciadas pelo navegador.</p>
+      <p style="margin: 0;">Nos exemplos abaixo, o <strong>passo que chama a API Yuno</strong> (<code class="c-str">POST /v1/payment-links</code>) deve rodar exclusivamente no seu servidor. O frontend apenas chama uma rota do seu backend (ex.: <code class="c-str">POST /api/payment-link</code>), que por sua vez chama a Yuno com as credenciais. Assim você evita vazamento de chave e ataques de terceiros.</p>
+    </div>
+
+    <!-- Ambientes -->
+    <h2>Ambientes e URLs</h2>
+    <div class="card">
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="text-align: left; border-bottom: 1px solid var(--border);">
+            <th style="padding: 0.5rem 0.75rem 0.5rem 0;">Ambiente</th>
+            <th style="padding: 0.5rem 0.75rem;">API (criar link)</th>
+            <th style="padding: 0.5rem 0.75rem;">Checkout (página de pagamento)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Sandbox</strong></td>
+            <td style="padding: 0.75rem;"><code class="c-str">https://api-sandbox.y.uno</code></td>
+            <td style="padding: 0.75rem;"><code class="c-str">https://checkout-sandbox.y.uno</code></td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Produção</strong></td>
+            <td style="padding: 0.75rem;"><code class="c-str">https://api.y.uno</code></td>
+            <td style="padding: 0.75rem;"><code class="c-str">https://checkout.y.uno</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-bottom: 0;">A resposta da API traz o <code class="c-prop">checkout_url</code> já apontando para o domínio correto (sandbox ou produção) conforme o ambiente da sua conta.</p>
+    </div>
+
+    <!-- Campos obrigatórios -->
+    <h2>Campos obrigatórios na criação do link</h2>
+    <div class="card">
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="text-align: left; border-bottom: 1px solid var(--border);">
+            <th style="padding: 0.5rem 0.75rem 0.5rem 0;">Campo</th>
+            <th style="padding: 0.5rem 0.75rem;">Tipo</th>
+            <th style="padding: 0.5rem 0.75rem;">Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><code class="c-prop">account_id</code></td>
+            <td style="padding: 0.75rem;">string</td>
+            <td style="padding: 0.75rem;">Código da conta Yuno.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><code class="c-prop">merchant_order_id</code></td>
+            <td style="padding: 0.75rem;">string</td>
+            <td style="padding: 0.75rem;">Identificador único do pedido no seu sistema. Use <strong>UUID</strong> ou outro padrão que evite colisões (evite <code class="c-fn">Date.now()</code> sozinho em produção).</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><code class="c-prop">country</code></td>
+            <td style="padding: 0.75rem;">string</td>
+            <td style="padding: 0.75rem;">Código do país (ex.: <code class="c-type">BR</code>).</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><code class="c-prop">amount</code></td>
+            <td style="padding: 0.75rem;">object</td>
+            <td style="padding: 0.75rem;"><code class="c-prop">value</code> (número) e <code class="c-prop">currency</code> (ex.: <code class="c-type">BRL</code>).</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><code class="c-prop">payment_method_types</code></td>
+            <td style="padding: 0.75rem;">array</td>
+            <td style="padding: 0.75rem;">Métodos aceitos (ex.: <code class="c-type">["CARD","PIX","BOLETO"]</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Passo a passo -->
+    <h2>Passo a passo — Backend e Frontend</h2>
+
+    <h3>1. Backend — Rota que chama a API Yuno</h3>
+    <div class="card">
+      <p>Esta rota roda <strong>apenas no servidor</strong>. Ela usa a <code class="c-prop">private-secret-key</code> a partir de variável de ambiente e nunca a expõe ao cliente.</p>
+      <pre><code>import fetch from "node-fetch";
+import { randomUUID } from "crypto";
+
+const API_URL = process.env.YUNO_API_URL || "https://api-sandbox.y.uno";
+const PUBLIC_API_KEY = process.env.YUNO_PUBLIC_API_KEY;
+const PRIVATE_SECRET_KEY = process.env.YUNO_PRIVATE_SECRET_KEY;
+
+async function createPaymentLinkFromYuno(payload) {
+  const res = await fetch(`${API_URL}/v1/payment-links`, {
+    method: "POST",
+    headers: {
+      "public-api-key": PUBLIC_API_KEY,
+      "private-secret-key": PRIVATE_SECRET_KEY,
+      "Content-Type": "application/json",
+      "X-Idempotency-Key": randomUUID(),
+    },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    const err = new Error(data?.message || data?.messages?.[0] || "Erro ao criar link");
+    err.status = res.status;
+    err.body = data;
+    throw err;
+  }
+  return data;
+}
+
+app.post("/api/payment-link", async (req, res) => {
+  try {
+    const { productName, amount, currency } = req.body;
+    const merchantOrderId = randomUUID();
+
+    const payload = {
+      account_id: process.env.YUNO_ACCOUNT_CODE,
+      merchant_order_id: merchantOrderId,
+      description: `Pagamento: ${productName || "Pedido"}`,
+      country: "BR",
+      amount: {
+        value: Number(amount) || 0,
+        currency: currency || "BRL",
+      },
+      payment_method_types: ["CARD", "PIX", "BOLETO"],
+    };
+
+    const response = await createPaymentLinkFromYuno(payload);
+    const checkoutUrl = response.checkout_url || response.payment_link || response.url || response.link;
+
+    if (!checkoutUrl) {
+      return res.status(502).json({ success: false, error: "Resposta da API sem URL de checkout" });
+    }
+
+    res.json({
+      success: true,
+      paymentLink: checkoutUrl,
+      linkId: response.id,
+      merchant_order_id: merchantOrderId,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    res.status(status).json({
+      success: false,
+      error: err.message,
+      details: err.body,
+    });
+  }
+});</code></pre>
+      <p class="note"><strong>merchant_order_id:</strong> Em produção, use <code class="c-fn">randomUUID()</code> (Node) ou outro gerador de UUID/ID único. Evite apenas <code class="c-fn">Date.now()</code>, pois múltiplas requisições no mesmo milissegundo podem gerar o mesmo ID e colisões.</p>
+      <p class="note"><strong>X-Idempotency-Key:</strong> Se a API Yuno suportar o header <code class="c-prop">X-Idempotency-Key</code>, envie um valor único por tentativa (ex.: UUID) para evitar criar links duplicados em caso de retry.</p>
+    </div>
+
+    <h3>2. Frontend — Chamar seu backend (sem credenciais)</h3>
+    <div class="card">
+      <p>O frontend apenas chama a rota do seu backend. Nenhuma chave secreta é enviada pelo navegador.</p>
+      <pre><code>document.getElementById("btn-gerar-link").addEventListener("click", async () => {
+  const loading = document.getElementById("loading");
+  loading.style.display = "block";
+
+  try {
+    const res = await fetch("/api/payment-link", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productName: "Camiseta Urban",
+        amount: 99.90,
+        currency: "BRL",
+      }),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Falha ao gerar link");
+    }
+
+    if (data.success && data.paymentLink) {
+      window.location.href = data.paymentLink;
+    } else {
+      alert("Resposta inválida do servidor.");
+    }
+  } catch (e) {
+    console.error(e);
+    alert(e.message || "Erro ao gerar link de pagamento.");
+  } finally {
+    loading.style.display = "none";
+  }
+});</code></pre>
+    </div>
+
+    <!-- Opções de distribuição -->
+    <h2>Opções de distribuição do link</h2>
+    <div class="card">
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="text-align: left; border-bottom: 1px solid var(--border);">
+            <th style="padding: 0.5rem 0.75rem 0.5rem 0;">Canal</th>
+            <th style="padding: 0.5rem 0.75rem;">Uso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>Site</strong></td>
+            <td style="padding: 0.75rem;">Botão “Pagar” que chama seu backend e redireciona para <code class="c-prop">checkout_url</code>.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>WhatsApp</strong></td>
+            <td style="padding: 0.75rem;">Backend gera o link e envia por API do WhatsApp (ex.: WhatsApp Business API); o cliente clica e abre o checkout.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>E-mail</strong></td>
+            <td style="padding: 0.75rem;">Backend gera o link e envia por e-mail (ex.: Nodemailer). Use variáveis de ambiente para senha do SMTP — nunca senha em código.</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>QR Code</strong></td>
+            <td style="padding: 0.75rem;">Gere um QR Code que aponta para o <code class="c-prop">checkout_url</code>; o cliente escaneia e paga.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Exemplo: gerar QR Code a partir do checkout_url (Node.js)</h3>
+    <div class="card">
+      <p>Use o pacote <code class="c-str">qrcode</code> (npm) para gerar uma imagem ou dados de QR Code a partir do link de pagamento:</p>
+      <pre><code>const QRCode = require("qrcode");
+
+async function getPaymentLinkQRDataUrl(checkoutUrl) {
+  return await QRCode.toDataURL(checkoutUrl, { width: 256, margin: 2 });
+}
+
+// Uso: após obter checkout_url do backend
+const dataUrl = await getPaymentLinkQRDataUrl(checkoutUrl);
+document.getElementById("qr-placeholder").innerHTML = `&lt;img src="${dataUrl}" alt="QR Code pagamento" /&gt;`;</code></pre>
+      <p class="note">No backend, você pode gerar PNG em buffer com <code class="c-fn">QRCode.toBuffer(checkoutUrl)</code> para enviar em e-mail ou API.</p>
+    </div>
+
+    <h3>Exemplo de envio por e-mail (Node.js)</h3>
+    <div class="card">
+      <p>O exemplo abaixo é <strong>ilustrativo</strong>. Em produção, use sempre variáveis de ambiente para usuário e senha do SMTP.</p>
+      <pre><code>const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: process.env.SMTP_SECURE === "true",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
+
+async function sendPaymentLinkEmail(toEmail, checkoutUrl, productName) {
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: toEmail,
+    subject: `Link de pagamento: ${productName}`,
+    html: `&lt;p&gt;Clique para pagar: &lt;a href="${checkoutUrl}"&gt;${checkoutUrl}&lt;/a&gt;&lt;/p&gt;`,
+  });
+}</code></pre>
+      <p class="note">Não utilize senha hardcoded (ex.: <code class="c-str">pass: 'sua-senha'</code>). Use <code class="c-prop">process.env.SMTP_PASS</code> e configure no ambiente de execução.</p>
+    </div>
+
+    <!-- Webhooks / Callbacks -->
+    <h2>Webhooks e notificação do resultado do pagamento</h2>
+    <p>O cliente pode concluir o pagamento na página de checkout da Yuno. O resultado definitivo (aprovado, rejeitado, etc.) não deve ser inferido apenas pelo redirecionamento ou pela URL de retorno — ele deve ser confirmado no seu backend via <strong>webhook</strong>.</p>
+    <div class="card">
+      <ul style="margin-bottom: 0;">
+        <li><strong>Eventos comuns:</strong> <code class="c-prop">payment.approved</code>, <code class="c-prop">payment.rejected</code>, entre outros. Consulte a documentação de webhooks da Yuno para a lista completa e o formato do payload.</li>
+        <li><strong>Seu backend:</strong> deve expor um endpoint (ex.: <code class="c-str">POST /webhooks/yuno</code>), validar a assinatura/autenticidade do webhook e atualizar o pedido com base no <code class="c-prop">merchant_order_id</code> e no status do pagamento.</li>
+        <li><strong>Nunca confie apenas na callback_url de retorno do usuário:</strong> um usuário pode acessar a URL sem ter pago. A confirmação definitiva é o webhook enviado pela Yuno ao seu servidor.</li>
+      </ul>
+    </div>
+    <p>Referência: <a href="https://docs.y.uno/docs/webhooks" target="_blank" rel="noopener">Webhooks — docs.y.uno</a>.</p>
+
+    <h3>Exemplo: validação de assinatura do webhook</h3>
+    <div class="card">
+      <p>A Yuno pode enviar um header de assinatura (ex.: <code class="c-prop">X-Yuno-Signature</code> ou similar) para você validar que o webhook veio da Yuno. Consulte a documentação oficial para o nome exato do header e o algoritmo. Abaixo, um padrão genérico com HMAC-SHA256:</p>
+      <pre><code>const crypto = require("crypto");
+
+function validateWebhookSignature(payloadRaw, signatureHeader, secret) {
+  const expected = crypto
+    .createHmac("sha256", secret)
+    .update(payloadRaw)
+    .digest("hex");
+  return crypto.timingSafeEqual(
+    Buffer.from(signatureHeader, "utf8"),
+    Buffer.from(expected, "utf8")
+  );
+}
+
+app.post("/webhooks/yuno", express.raw({ type: "application/json" }), (req, res) => {
+  const signature = req.headers["x-yuno-signature"];
+  const rawBody = req.body;
+
+  if (!validateWebhookSignature(rawBody, signature, process.env.YUNO_WEBHOOK_SECRET)) {
+    return res.status(401).send("Invalid signature");
+  }
+  const payload = JSON.parse(rawBody);
+  // Atualize o pedido com base em payload.merchant_order_id e payload.status
+  res.status(200).send("OK");
+});</code></pre>
+      <p class="note">Use o body bruto (<code class="c-prop">express.raw()</code>) para assinatura; o secret do webhook é configurado no dashboard Yuno e deve ficar em variável de ambiente.</p>
+    </div>
+
+    <!-- Tratamento de erros -->
+    <h2>Tratamento de erros da API</h2>
+    <p>Sempre trate erros de acordo com o status HTTP e o corpo da resposta. Abaixo, os casos mais comuns.</p>
+    <div class="card">
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr style="text-align: left; border-bottom: 1px solid var(--border);">
+            <th style="padding: 0.5rem 0.75rem 0.5rem 0;">Status</th>
+            <th style="padding: 0.5rem 0.75rem;">Significado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>401</strong></td>
+            <td style="padding: 0.75rem;">Credenciais inválidas (<code class="c-prop">public-api-key</code> ou <code class="c-prop">private-secret-key</code>). Verifique variáveis de ambiente.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border);">
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>422</strong></td>
+            <td style="padding: 0.75rem;">Dados inválidos (campos obrigatórios faltando, formato incorreto). Use <code class="c-prop">message</code> ou <code class="c-prop">messages</code> da resposta para exibir ao usuário.</td>
+          </tr>
+          <tr>
+            <td style="padding: 0.75rem 0.75rem 0.75rem 0;"><strong>500</strong></td>
+            <td style="padding: 0.75rem;">Erro interno da Yuno. Implemente retry com backoff e log para análise.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Exemplo de resposta de sucesso (201)</h3>
+    <div class="card">
+      <pre><code>{
+  "id": "plink_abc123",
+  "checkout_url": "https://checkout-sandbox.y.uno/...",
+  "merchant_order_id": "550e8400-e29b-41d4-a716-446655440000",
+  "amount": { "value": 9990, "currency": "BRL" },
+  "status": "ACTIVE"
+}</code></pre>
+    </div>
+
+    <h3>Exemplo de resposta de erro (422)</h3>
+    <div class="card">
+      <pre><code>{
+  "code": "VALIDATION_ERROR",
+  "message": "Validation failed",
+  "messages": ["amount.value is required", "country must be a valid country code"]
+}</code></pre>
+    </div>
+
+    <h3>Exemplo de tratamento no backend</h3>
+    <div class="card">
+      <pre><code>const res = await fetch(`${API_URL}/v1/payment-links`, { ... });
+const data = await res.json();
+
+if (!res.ok) {
+  if (res.status === 401) {
+    console.error("Credenciais Yuno inválidas");
+    return res.status(500).json({ success: false, error: "Configuração de pagamento inválida" });
+  }
+  if (res.status === 422) {
+    const msg = data.messages?.join(", ") || data.message || "Dados inválidos";
+    return res.status(400).json({ success: false, error: msg });
+  }
+  return res.status(res.status).json({ success: false, error: data.message || "Erro ao criar link" });
+}</code></pre>
+    </div>
+
+    <!-- Expiração e idempotência -->
+    <h2>Expiração do link e idempotência</h2>
+
+    <h3>Expiração</h3>
+    <p>Os links de pagamento podem ter data de início e de expiração configuráveis na API (campos opcionais, conforme documentação da Yuno). Consulte <a href="https://docs.y.uno/docs/payment-link" target="_blank" rel="noopener">Payment Links</a> e <a href="https://docs.y.uno/docs/the-payment-link-object" target="_blank" rel="noopener">The Payment Link Object</a> para detalhes. Após a expiração, o link deixa de aceitar pagamentos.</p>
+
+    <h3>Idempotência</h3>
+    <p>Se o merchant chamar a API duas vezes com o mesmo <code class="c-prop">merchant_order_id</code>, o comportamento pode variar: a Yuno pode retornar o link já existente ou um erro de duplicidade. Para evitar ambiguidade e colisões, gere sempre um <code class="c-prop">merchant_order_id</code> único por tentativa de cobrança (por exemplo, um UUID por pedido ou por solicitação de link). Assim você também facilita o rastreio do pagamento no webhook.</p>
+
+    <!-- Resumo e referências -->
+    <h2>Resumo</h2>
+    <div class="card highlight">
+      <ul style="margin-bottom: 0;">
+        <li><strong>Backend</strong> chama <code class="c-str">POST /v1/payment-links</code> com <code class="c-prop">public-api-key</code> e <code class="c-prop">private-secret-key</code> (esta nunca no frontend).</li>
+        <li>Use <strong>UUID</strong> (ou ID único robusto) para <code class="c-prop">merchant_order_id</code>.</li>
+        <li><strong>Frontend</strong> chama apenas sua própria API; redireciona ou envia o <code class="c-prop">checkout_url</code> por site, WhatsApp, e-mail ou QR Code.</li>
+        <li>Resultado definitivo do pagamento via <strong>webhook</strong>; implemente endpoint e validação.</li>
+        <li>Trate erros 401, 422 e 500 e use variáveis de ambiente para credenciais e SMTP.</li>
+      </ul>
+    </div>
+
+    <h2>Referências — Documentação Yuno</h2>
+    <div class="card">
+      <ul style="list-style: none; padding-left: 0;">
+        <li style="margin-bottom: 0.75rem;"><a href="https://docs.y.uno/docs/payment-link" target="_blank" rel="noopener">Payment Links — Visão geral</a></li>
+        <li style="margin-bottom: 0.75rem;"><a href="https://docs.y.uno/docs/the-payment-link-object" target="_blank" rel="noopener">The Payment Link Object</a></li>
+        <li style="margin-bottom: 0.75rem;"><a href="https://docs.y.uno/docs/webhooks" target="_blank" rel="noopener">Webhooks</a></li>
+      </ul>
+    </div>
+
+    <footer>
+      Documento para uso dos parceiros/merchants. Integração Yuno — Links de Pagamento.
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      var blocks = document.querySelectorAll('pre code');
+      var kw = /\b(const|let|var|async|await|if|else|return|new|try|catch|throw|for|in|of|while|function|import|from|process|env)\b/g;
+      blocks.forEach(function(block) {
+        if (block.closest && block.closest(".ascii-diagram")) return;
+        var raw = block.textContent;
+        var s = raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        var stash = [];
+        s = s.replace(/\/\/[^\n]*/g, function(m){ stash.push('<span class="hl-com">'+m+'</span>'); return '\u0001'+(stash.length-1)+'\u0001'; });
+        s = s.replace(/\/\*[\s\S]*?\*\//g, function(m){ stash.push('<span class="hl-com">'+m+'</span>'); return '\u0001'+(stash.length-1)+'\u0001'; });
+        s = s.replace(/\"([^\"\\]|\\.)*\"/g, function(m){ stash.push('<span class="hl-str">'+m+'</span>'); return '\u0001'+(stash.length-1)+'\u0001'; });
+        s = s.replace(/'([^'\\]|\\.)*'/g, function(m){ stash.push('<span class="hl-str">'+m+'</span>'); return '\u0001'+(stash.length-1)+'\u0001'; });
+        for (var i = 0; i < stash.length; i++) s = s.replace('\u0001'+i+'\u0001', stash[i]);
+        s = s.replace(/\b(BRL|BR|ACTIVE|VALIDATION_ERROR|CARD|PIX|BOLETO)\b/g, '<span class="hl-type">$1</span>');
+        s = s.replace(/\b(checkout_url|payment_link|merchant_order_id|account_id|payment_method_types|public-api-key|private-secret-key|message|messages|SMTP_HOST|SMTP_PORT|SMTP_USER|SMTP_PASS|SMTP_FROM|YUNO_API_URL|YUNO_PUBLIC_API_KEY|YUNO_PRIVATE_SECRET_KEY|YUNO_ACCOUNT_CODE)\b/g, '<span class="hl-prop">$1</span>');
+        s = s.replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*(?=\()/g, '<span class="hl-fn">$1</span> ');
+        s = s.replace(kw, '<span class="hl-kw">$1</span>');
+        s = s.replace(/\b(\d+\.?\d*)\b/g, '<span class="hl-num">$1</span>');
+        block.innerHTML = s;
+      });
+    })();
+  </script>
+</body>
+</html>
