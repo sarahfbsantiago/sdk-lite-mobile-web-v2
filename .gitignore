@@ -67,3 +67,4 @@ secrets.json
 *.zip
 *.tar.gz
 *.rar
+SESSION_SUMMARY.md
