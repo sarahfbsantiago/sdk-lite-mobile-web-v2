@@ -1,13 +1,16 @@
-# Yuno SDK Lite 1.5 - Payment Integration
+# Yuno Integration - Web + Mobile
 
-> **[Versao em Portugues](#yuno-sdk-lite-15---integracao-de-pagamentos)**
+> **[Versao em Portugues](#yuno-integration---web--mobile-1)**
 
-Complete SDK for integrating Apple Pay and Google Pay using Yuno across Web, iOS, and Android platforms.
+Complete SDK integration for Apple Pay and Google Pay using Yuno across Web, iOS, and Android platforms.
 
 ---
 
 ## Table of Contents
 
+- [SDK Types Overview](#sdk-types-overview)
+- [Current Integration](#current-integration)
+- [Official Documentation](#official-documentation)
 - [Quick Start](#quick-start)
 - [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
@@ -19,6 +22,90 @@ Complete SDK for integrating Apple Pay and Google Pay using Yuno across Web, iOS
 - [Web SDK vs Mobile SDKs](#web-sdk-vs-mobile-sdks---key-differences)
 - [Troubleshooting](#troubleshooting)
 - [Support](#support)
+
+---
+
+## SDK Types Overview
+
+Yuno offers multiple SDK integration patterns for different use cases:
+
+### Web SDK Types
+
+| Type | Method | Description | UI Control |
+|------|--------|-------------|------------|
+| **Seamless Checkout** | `mountSeamlessCheckout()` | Complete checkout UI managed by SDK | SDK |
+| **Seamless Checkout Lite** | `mountSeamlessCheckoutLite()` | Merchant controls payment method selection | Hybrid |
+| **Checkout Full** | `mountCheckout()` | SDK provides payment method list UI | SDK |
+| **Checkout Lite** | `mountCheckoutLite()` | Merchant controls UI, SDK handles payment logic | Merchant |
+| **External Buttons** | `mountExternalButtons()` | Apple Pay, Google Pay, PayPal buttons | SDK buttons |
+| **Secure Fields** | `secureFields()` | Custom card form with SDK tokenization | Merchant |
+| **Headless** | Direct API | Full API-level control, no SDK UI | Merchant |
+
+### Mobile SDK Types
+
+| Platform | Type | Description |
+|----------|------|-------------|
+| **iOS** | Full | Complete UI managed by SDK |
+| **iOS** | Lite | Merchant-controlled UI with SDK payment logic |
+| **iOS** | Headless | Full API-level control |
+| **Android** | Checkout Complete | SDK provides payment method list |
+| **Android** | Checkout Lite | Merchant controls payment method selection |
+| **Android** | Payment Render | SDK renders form in merchant layout |
+| **Android** | Headless | Full API-level control |
+
+---
+
+## Current Integration
+
+This project uses the following SDK configuration:
+
+| Aspect | Value |
+|--------|-------|
+| **Web SDK Version** | v1.5 |
+| **Integration Type** | **Checkout Lite** + **External Buttons** |
+| **Methods Used** | `startCheckout()`, `mountCheckoutLite()`, `mountExternalButtons()` |
+
+### What This Means
+
+- **Checkout Lite**: We control the payment method selection UI, while the SDK handles the payment processing logic
+- **External Buttons**: The SDK renders native Apple Pay, Google Pay, and PayPal buttons
+
+### Available for Future Expansion
+
+The `yuno-official-sdks/` folder contains official SDK examples for:
+- All Web SDK integration types (Seamless, Full, Lite, Secure Fields, Headless)
+- iOS SDK (Full, Lite, Headless modes)
+- Android SDK (all patterns including Enrollment)
+
+### SDK Version Comparison
+
+| Platform | Our Version | Latest Official |
+|----------|-------------|-----------------|
+| Web | v1.5 | v1.9 |
+| iOS | 2.18.0 | 2.18.0 |
+| Android | 2.11.0 | 2.17.0 |
+
+---
+
+## Official Documentation
+
+### Yuno Documentation
+
+- **What is Yuno:** https://docs.y.uno/docs/how-yuno-works/what-is-yuno
+- **Full Documentation:** https://docs.y.uno
+
+### Official SDK Repositories
+
+| Platform | Repository |
+|----------|------------|
+| **Web SDK** | https://github.com/yuno-payments/yuno-sdk-web |
+| **iOS SDK** | https://github.com/yuno-payments/yuno-sdk-ios |
+| **Android SDK** | https://github.com/yuno-payments/yuno-sdk-android |
+
+### Dashboards
+
+- **Sandbox:** https://dashboard-sandbox.y.uno
+- **Production:** https://dashboard.y.uno
 
 ---
 
@@ -445,9 +532,9 @@ The **payment logic is identical** across all platforms. Only the UI rendering d
 
 ---
 
-# Yuno SDK Lite 1.5 - Integracao de Pagamentos
+# Yuno Integration - Web + Mobile
 
-> **[English Version](#yuno-sdk-lite-15---payment-integration)**
+> **[English Version](#yuno-integration---web--mobile)**
 
 SDK completo para integrar Apple Pay e Google Pay usando Yuno nas plataformas Web, iOS e Android.
 
@@ -455,6 +542,9 @@ SDK completo para integrar Apple Pay e Google Pay usando Yuno nas plataformas We
 
 ## Indice
 
+- [Visao Geral dos Tipos de SDK](#visao-geral-dos-tipos-de-sdk)
+- [Integracao Atual](#integracao-atual)
+- [Documentacao Oficial](#documentacao-oficial)
 - [Inicio Rapido](#inicio-rapido)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Endpoints da API](#endpoints-da-api)
@@ -466,6 +556,90 @@ SDK completo para integrar Apple Pay e Google Pay usando Yuno nas plataformas We
 - [Web SDK vs Mobile SDKs](#web-sdk-vs-mobile-sdks---diferencas-principais)
 - [Solucao de Problemas](#solucao-de-problemas)
 - [Suporte](#suporte)
+
+---
+
+## Visao Geral dos Tipos de SDK
+
+A Yuno oferece multiplos padroes de integracao para diferentes casos de uso:
+
+### Tipos de Web SDK
+
+| Tipo | Metodo | Descricao | Controle de UI |
+|------|--------|-----------|----------------|
+| **Seamless Checkout** | `mountSeamlessCheckout()` | UI completa gerenciada pelo SDK | SDK |
+| **Seamless Checkout Lite** | `mountSeamlessCheckoutLite()` | Merchant controla selecao de metodo | Hibrido |
+| **Checkout Full** | `mountCheckout()` | SDK fornece lista de metodos de pagamento | SDK |
+| **Checkout Lite** | `mountCheckoutLite()` | Merchant controla UI, SDK processa pagamento | Merchant |
+| **External Buttons** | `mountExternalButtons()` | Botoes Apple Pay, Google Pay, PayPal | Botoes SDK |
+| **Secure Fields** | `secureFields()` | Formulario customizado com tokenizacao SDK | Merchant |
+| **Headless** | API direta | Controle total via API, sem UI do SDK | Merchant |
+
+### Tipos de Mobile SDK
+
+| Plataforma | Tipo | Descricao |
+|------------|------|-----------|
+| **iOS** | Full | UI completa gerenciada pelo SDK |
+| **iOS** | Lite | UI controlada pelo merchant com logica de pagamento do SDK |
+| **iOS** | Headless | Controle total via API |
+| **Android** | Checkout Complete | SDK fornece lista de metodos de pagamento |
+| **Android** | Checkout Lite | Merchant controla selecao de metodo |
+| **Android** | Payment Render | SDK renderiza formulario no layout do merchant |
+| **Android** | Headless | Controle total via API |
+
+---
+
+## Integracao Atual
+
+Este projeto usa a seguinte configuracao de SDK:
+
+| Aspecto | Valor |
+|---------|-------|
+| **Versao Web SDK** | v1.5 |
+| **Tipo de Integracao** | **Checkout Lite** + **External Buttons** |
+| **Metodos Utilizados** | `startCheckout()`, `mountCheckoutLite()`, `mountExternalButtons()` |
+
+### O Que Isso Significa
+
+- **Checkout Lite**: Nos controlamos a UI de selecao de metodo de pagamento, enquanto o SDK processa a logica de pagamento
+- **External Buttons**: O SDK renderiza botoes nativos de Apple Pay, Google Pay e PayPal
+
+### Disponivel para Expansao Futura
+
+A pasta `yuno-official-sdks/` contem exemplos oficiais de SDK para:
+- Todos os tipos de integracao Web SDK (Seamless, Full, Lite, Secure Fields, Headless)
+- iOS SDK (modos Full, Lite, Headless)
+- Android SDK (todos os padroes incluindo Enrollment)
+
+### Comparacao de Versoes do SDK
+
+| Plataforma | Nossa Versao | Ultima Oficial |
+|------------|--------------|----------------|
+| Web | v1.5 | v1.9 |
+| iOS | 2.18.0 | 2.18.0 |
+| Android | 2.11.0 | 2.17.0 |
+
+---
+
+## Documentacao Oficial
+
+### Documentacao Yuno
+
+- **O que e a Yuno:** https://docs.y.uno/docs/how-yuno-works/what-is-yuno
+- **Documentacao Completa:** https://docs.y.uno
+
+### Repositorios Oficiais dos SDKs
+
+| Plataforma | Repositorio |
+|------------|-------------|
+| **Web SDK** | https://github.com/yuno-payments/yuno-sdk-web |
+| **iOS SDK** | https://github.com/yuno-payments/yuno-sdk-ios |
+| **Android SDK** | https://github.com/yuno-payments/yuno-sdk-android |
+
+### Dashboards
+
+- **Sandbox:** https://dashboard-sandbox.y.uno
+- **Producao:** https://dashboard.y.uno
 
 ---
 

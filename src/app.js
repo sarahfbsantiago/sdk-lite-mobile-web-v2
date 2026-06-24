@@ -2,11 +2,12 @@
  * @fileoverview Ponto de entrada da aplicação / Application entry point
  * @module app
  *
- * SDK Lite 1.5 - Integração com Yuno Payment Gateway
- * SDK Lite 1.5 - Integration with Yuno Payment Gateway
+ * Yuno Integration - Web + Mobile
+ * Supports multiple SDK types: Lite, Full, Seamless, Headless
  *
  * @author Pigeonz Street Wear
- * @version 1.5.0
+ * @version 2.0.0
+ * @see https://docs.y.uno
  */
 
 import express from 'express'

@@ -477,8 +477,8 @@
 
           frontendLog('CHECKOUT_START', 'Checkout Session Recebida', `Session ID: ${checkoutSession}`, { checkoutSession, countryCode });
 
-          // Única instância do SDK Lite v1.5 (suporta Lite + Seamless)
-          // Single Lite SDK v1.5 instance (supports Lite + Seamless)
+          // Yuno SDK - Checkout Lite + External Buttons (current: v1.5)
+          // See: https://docs.y.uno for all SDK types
           frontendLog('SDK_INIT_START', 'Yuno.initialize()', 'Inicializando SDK Yuno...', { publicApiKey: publicApiKey.substring(0, 30) + '...' });
           const initStart = Date.now();
           yuno = await Yuno.initialize(publicApiKey);
@@ -651,7 +651,8 @@
       window.addEventListener("yuno-sdk-ready", initCheckout);
     </script>
 
-    <!-- SDK: https://sdk-web.y.uno/v1.5/main.js (Lite + Seamless) -->
+    <!-- Yuno Web SDK - Current version: v1.5 | Latest: v1.9 -->
+    <!-- Docs: https://docs.y.uno | Repo: https://github.com/yuno-payments/yuno-sdk-web -->
     <script src="https://sdk-web.y.uno/v1.5/main.js" defer></script>
   </body>
 </html>
